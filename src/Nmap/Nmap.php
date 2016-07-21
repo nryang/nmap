@@ -35,6 +35,8 @@ class Nmap
 
     private $treatHostsAsOnline = false;
 
+    private $numTopPortsToScan;
+
     private $executable;
 
     /**
@@ -101,6 +103,10 @@ class Nmap
 
         if (true == $this->treatHostsAsOnline) {
             $options[] = '-Pn';
+        }
+
+        if (!is_null($this->numTopPortsToScan)) {
+            $options[] = '--top-ports ' . $this->numTopPortsToScan;
         }
 
         $options[] = '-oX';
@@ -179,6 +185,12 @@ class Nmap
 
         return $this;
     }
+
+    public function setNumTopPortsToScan($numTopPortsToScan)
+        {
+            $this->numTopPortsToScan = $numTopPortsToScan;
+            return $this;
+        }
 
     /**
      * @param boolean $disable
